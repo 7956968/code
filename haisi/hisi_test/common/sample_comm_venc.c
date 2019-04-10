@@ -1355,11 +1355,11 @@ HI_S32 SAMPLE_COMM_VENC_StartEx(VENC_CHN VencChn, PAYLOAD_TYPE_E enType, VIDEO_N
     {
             stVencChnAttr.stGopAttr.enGopMode  = VENC_GOPMODE_NORMALP;
             stVencChnAttr.stGopAttr.stNormalP.s32IPQpDelta = 0;
-            }
-            else
-            {
-				memcpy(&stVencChnAttr.stGopAttr,pstGopAttr,sizeof(VENC_GOP_ATTR_S));		
-            }
+    }
+    else
+    {
+        memcpy(&stVencChnAttr.stGopAttr,pstGopAttr,sizeof(VENC_GOP_ATTR_S));
+    }
 
     s32Ret = HI_MPI_VENC_CreateChn(VencChn, &stVencChnAttr);
     if (HI_SUCCESS != s32Ret)
@@ -1816,7 +1816,7 @@ HI_VOID* SAMPLE_COMM_VENC_GetVencStreamProc_Svc_t(void* p)
      step 1:  check & prepare save-file & venc-fd
     ******************************************/
     if (s32ChnTotal >= VENC_MAX_CHN_NUM)
-    {
+    { 
         SAMPLE_PRT("input count invaild\n");
         return NULL;
     }

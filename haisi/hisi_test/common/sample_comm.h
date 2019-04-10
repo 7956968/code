@@ -44,12 +44,12 @@
 #include "mpi_ao.h"
 #include "mpi_hdmi.h"
 
-//#include "tlv320aic31.h"
+#include "tlv320aic31.h"
 #ifdef HI_FPGA
 #include "tw2865.h"
 #endif
 #include "nvp6134.h"
-//#include "tp2802.h"
+#include "tp2802.h"
 
 #include "loadbmp.h"
 
@@ -123,6 +123,9 @@ extern "C"{
 #define SAMPLE_AUDIO_TLV320_AI_DEV 2
 #define SAMPLE_AUDIO_TLV320_AO_DEV 0
 
+//add
+#define AI_DEV 1
+#define AO_DEV 0
 
 #define SAMPLE_AUDIO_INNER_HDMI_AO_DEV 2
 #define SAMPLE_AUDIO_HDMI_AO_DEV 1

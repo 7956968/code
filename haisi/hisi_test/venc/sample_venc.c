@@ -19,7 +19,7 @@ extern "C" {
 
 #include "sample_comm.h"
 
-VIDEO_NORM_E gs_enNorm = VIDEO_ENCODING_MODE_NTSC;
+VIDEO_NORM_E gs_enNorm_venc = VIDEO_ENCODING_MODE_NTSC;
 
 /******************************************************************************
 * function : show usage
@@ -113,14 +113,14 @@ HI_S32 SAMPLE_VENC_NORMALP_CLASSIC(HI_VOID)
     /*video buffer*/ 
 	if(s32ChnNum >= 1)
     {
-	    u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm,\
+        u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm_venc,\
 	                enSize[0], SAMPLE_PIXEL_FORMAT, SAMPLE_SYS_ALIGN_WIDTH,COMPRESS_MODE_SEG);
 	    stVbConf.astCommPool[0].u32BlkSize = u32BlkSize;
 	    stVbConf.astCommPool[0].u32BlkCnt = 32;
 	}
 	if(s32ChnNum >= 2)
     {
-	    u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm,\
+        u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm_venc,\
 	                enSize[1], SAMPLE_PIXEL_FORMAT, SAMPLE_SYS_ALIGN_WIDTH,COMPRESS_MODE_SEG);
 	    stVbConf.astCommPool[1].u32BlkSize = u32BlkSize;
 	    stVbConf.astCommPool[1].u32BlkCnt  =32;
@@ -140,7 +140,7 @@ HI_S32 SAMPLE_VENC_NORMALP_CLASSIC(HI_VOID)
     /******************************************
      step 3: start vi dev & chn to capture
     ******************************************/
-    s32Ret = SAMPLE_COMM_VI_Start(enViMode,gs_enNorm);
+    s32Ret = SAMPLE_COMM_VI_Start(enViMode,gs_enNorm_venc);
     if (HI_SUCCESS != s32Ret)
     {
         SAMPLE_PRT("start vi failed!\n");
@@ -150,7 +150,7 @@ HI_S32 SAMPLE_VENC_NORMALP_CLASSIC(HI_VOID)
     /******************************************
      step 4: start vpss and vi bind vpss
     ******************************************/
-    s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm, enSize[0], &stSize);
+    s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm_venc, enSize[0], &stSize);
     if (HI_SUCCESS != s32Ret)
     {
         SAMPLE_PRT("SAMPLE_COMM_SYS_GetPicSize failed!\n");
@@ -219,7 +219,7 @@ HI_S32 SAMPLE_VENC_NORMALP_CLASSIC(HI_VOID)
 	    VencChn = 0;
 		
 	    s32Ret = SAMPLE_COMM_VENC_Start(VencChn, enPayLoad[0],\
-	                                   gs_enNorm, enSize[0], enRcMode,u32Profile);
+                                       gs_enNorm_venc, enSize[0], enRcMode,u32Profile);
 	    if (HI_SUCCESS != s32Ret)
 	    {
 	        SAMPLE_PRT("Start Venc failed!\n");
@@ -240,7 +240,7 @@ HI_S32 SAMPLE_VENC_NORMALP_CLASSIC(HI_VOID)
 		VpssChn = 1;
 	    VencChn = 1;	
 	    s32Ret = SAMPLE_COMM_VENC_Start(VencChn, enPayLoad[1], \
-	                                   gs_enNorm, enSize[1], enRcMode,u32Profile);
+                                       gs_enNorm_venc, enSize[1], enRcMode,u32Profile);
 	    if (HI_SUCCESS != s32Ret)
 	    {
 	        SAMPLE_PRT("Start Venc failed!\n");
@@ -352,14 +352,14 @@ HI_S32 SAMPLE_VENC_SMARTP_CLASSIC(HI_VOID)
     /*video buffer*/ 
 	if(s32ChnNum >= 1)
 	{
-		u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm,\
+        u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm_venc,\
 					enSize[0], SAMPLE_PIXEL_FORMAT, SAMPLE_SYS_ALIGN_WIDTH,COMPRESS_MODE_SEG);
 		stVbConf.astCommPool[0].u32BlkSize = u32BlkSize;
 		stVbConf.astCommPool[0].u32BlkCnt = 32;
 	}
 	if(s32ChnNum >= 2)
 	{
-		u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm,\
+        u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm_venc,\
 					enSize[1], SAMPLE_PIXEL_FORMAT, SAMPLE_SYS_ALIGN_WIDTH,COMPRESS_MODE_SEG);
 		stVbConf.astCommPool[1].u32BlkSize = u32BlkSize;
 		stVbConf.astCommPool[1].u32BlkCnt =32;
@@ -379,7 +379,7 @@ HI_S32 SAMPLE_VENC_SMARTP_CLASSIC(HI_VOID)
 	/******************************************
 	 step 3: start vi dev & chn to capture
 	******************************************/
-	s32Ret = SAMPLE_COMM_VI_Start(enViMode,gs_enNorm);
+    s32Ret = SAMPLE_COMM_VI_Start(enViMode,gs_enNorm_venc);
 	if (HI_SUCCESS != s32Ret)
 	{
 		SAMPLE_PRT("start vi failed!\n");
@@ -389,7 +389,7 @@ HI_S32 SAMPLE_VENC_SMARTP_CLASSIC(HI_VOID)
 	/******************************************
 	 step 4: start vpss and vi bind vpss
 	******************************************/
-	s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm, enSize[0], &stSize);
+    s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm_venc, enSize[0], &stSize);
 	if (HI_SUCCESS != s32Ret)
 	{
 		SAMPLE_PRT("SAMPLE_COMM_SYS_GetPicSize failed!\n");
@@ -458,7 +458,7 @@ HI_S32 SAMPLE_VENC_SMARTP_CLASSIC(HI_VOID)
 		VpssChn = 0;
 	    VencChn = 0;
 		
-		s32Ret = SAMPLE_COMM_VENC_GetGopAttr(enGopMode[0],&stGopAttr,gs_enNorm);
+        s32Ret = SAMPLE_COMM_VENC_GetGopAttr(enGopMode[0],&stGopAttr,gs_enNorm_venc);
 	    if (HI_SUCCESS != s32Ret)
 	    {
 	        SAMPLE_PRT("Get GopAttr failed!\n");
@@ -466,7 +466,7 @@ HI_S32 SAMPLE_VENC_SMARTP_CLASSIC(HI_VOID)
 	    }		
 		
 	    s32Ret = SAMPLE_COMM_VENC_StartEx(VencChn, enPayLoad[0],\
-	                                   gs_enNorm, enSize[0], enRcMode,u32Profile,&stGopAttr);
+                                       gs_enNorm_venc, enSize[0], enRcMode,u32Profile,&stGopAttr);
 		if (HI_SUCCESS != s32Ret)
 		{
 			SAMPLE_PRT("Start Venc failed!\n");
@@ -487,7 +487,7 @@ HI_S32 SAMPLE_VENC_SMARTP_CLASSIC(HI_VOID)
 		VpssChn = 1;
 	    VencChn = 1;
 		
-		s32Ret = SAMPLE_COMM_VENC_GetGopAttr(enGopMode[1],&stGopAttr,gs_enNorm);
+        s32Ret = SAMPLE_COMM_VENC_GetGopAttr(enGopMode[1],&stGopAttr,gs_enNorm_venc);
 	    if (HI_SUCCESS != s32Ret)
 	    {
 	        SAMPLE_PRT("Get GopAttr failed!\n");
@@ -495,7 +495,7 @@ HI_S32 SAMPLE_VENC_SMARTP_CLASSIC(HI_VOID)
 	    }		
 		
 	    s32Ret = SAMPLE_COMM_VENC_StartEx(VencChn, enPayLoad[1],\
-	                                   gs_enNorm, enSize[1], enRcMode,u32Profile,&stGopAttr);
+                                       gs_enNorm_venc, enSize[1], enRcMode,u32Profile,&stGopAttr);
 		if (HI_SUCCESS != s32Ret)
 		{
 			SAMPLE_PRT("Start Venc failed!\n");
@@ -603,14 +603,14 @@ HI_S32 SAMPLE_VENC_DUALP_CLASSIC(HI_VOID)
     /*video buffer*/ 
 	if(s32ChnNum >= 1)
     {
-	    u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm,\
+        u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm_venc,\
 	                enSize[0], SAMPLE_PIXEL_FORMAT, SAMPLE_SYS_ALIGN_WIDTH,COMPRESS_MODE_SEG);
 	    stVbConf.astCommPool[0].u32BlkSize = u32BlkSize;
 	    stVbConf.astCommPool[0].u32BlkCnt = 32;
 	}
 	if(s32ChnNum >= 2)
     {
-	    u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm,\
+        u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm_venc,\
 	                enSize[1], SAMPLE_PIXEL_FORMAT, SAMPLE_SYS_ALIGN_WIDTH,COMPRESS_MODE_SEG);
 	    stVbConf.astCommPool[1].u32BlkSize = u32BlkSize;
 	    stVbConf.astCommPool[1].u32BlkCnt  = 32;
@@ -630,7 +630,7 @@ HI_S32 SAMPLE_VENC_DUALP_CLASSIC(HI_VOID)
     /******************************************
      step 3: start vi dev & chn to capture
     ******************************************/
-	s32Ret = SAMPLE_COMM_VI_Start(enViMode,gs_enNorm);
+    s32Ret = SAMPLE_COMM_VI_Start(enViMode,gs_enNorm_venc);
     if (HI_SUCCESS != s32Ret)
     {
         SAMPLE_PRT("start vi failed!\n");
@@ -640,7 +640,7 @@ HI_S32 SAMPLE_VENC_DUALP_CLASSIC(HI_VOID)
     /******************************************
      step 4: start vpss and vi bind vpss
     ******************************************/
-    s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm, enSize[0], &stSize);
+    s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm_venc, enSize[0], &stSize);
     if (HI_SUCCESS != s32Ret)
     {
         SAMPLE_PRT("SAMPLE_COMM_SYS_GetPicSize failed!\n");
@@ -706,7 +706,7 @@ HI_S32 SAMPLE_VENC_DUALP_CLASSIC(HI_VOID)
 	    VpssChn = 0;
 	    VencChn = 0;
 		
-		s32Ret = SAMPLE_COMM_VENC_GetGopAttr(enGopMode[0],&stGopAttr,gs_enNorm);
+        s32Ret = SAMPLE_COMM_VENC_GetGopAttr(enGopMode[0],&stGopAttr,gs_enNorm_venc);
 	    if (HI_SUCCESS != s32Ret)
 	    {
 	        SAMPLE_PRT("Get GopAttr failed!\n");
@@ -714,7 +714,7 @@ HI_S32 SAMPLE_VENC_DUALP_CLASSIC(HI_VOID)
 	    }		
 		
 	    s32Ret = SAMPLE_COMM_VENC_StartEx(VencChn, enPayLoad[0],\
-	                                   gs_enNorm, enSize[0], enRcMode,u32Profile,&stGopAttr);
+                                       gs_enNorm_venc, enSize[0], enRcMode,u32Profile,&stGopAttr);
 	    if (HI_SUCCESS != s32Ret)
 	    {
 	        SAMPLE_PRT("Start Venc failed!\n");
@@ -734,7 +734,7 @@ HI_S32 SAMPLE_VENC_DUALP_CLASSIC(HI_VOID)
 	{
 		VpssChn = 1;
 	    VencChn = 1;
-		s32Ret = SAMPLE_COMM_VENC_GetGopAttr(enGopMode[1],&stGopAttr,gs_enNorm);
+        s32Ret = SAMPLE_COMM_VENC_GetGopAttr(enGopMode[1],&stGopAttr,gs_enNorm_venc);
 	    if (HI_SUCCESS != s32Ret)
 	    {
 	        SAMPLE_PRT("Get GopAttr failed!\n");
@@ -742,7 +742,7 @@ HI_S32 SAMPLE_VENC_DUALP_CLASSIC(HI_VOID)
 	    }
 		
 	    s32Ret = SAMPLE_COMM_VENC_StartEx(VencChn, enPayLoad[1],\
-	                                   gs_enNorm, enSize[1], enRcMode,u32Profile,&stGopAttr);
+                                       gs_enNorm_venc, enSize[1], enRcMode,u32Profile,&stGopAttr);
 	    if (HI_SUCCESS != s32Ret)
 	    {
 	        SAMPLE_PRT("Start Venc failed!\n");
@@ -851,14 +851,14 @@ HI_S32 SAMPLE_VENC_DUALPP_CLASSIC(HI_VOID)
     /*video buffer*/ 
 	if(s32ChnNum >= 1)
     {
-	    u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm,\
+        u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm_venc,\
 	                enSize[0], SAMPLE_PIXEL_FORMAT, SAMPLE_SYS_ALIGN_WIDTH,COMPRESS_MODE_SEG);
 	    stVbConf.astCommPool[0].u32BlkSize = u32BlkSize;
 	    stVbConf.astCommPool[0].u32BlkCnt = 32;
 	}
 	if(s32ChnNum >= 2)
     {
-	    u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm,\
+        u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm_venc,\
 	                enSize[1], SAMPLE_PIXEL_FORMAT, SAMPLE_SYS_ALIGN_WIDTH,COMPRESS_MODE_SEG);
 	    stVbConf.astCommPool[1].u32BlkSize = u32BlkSize;
 	    stVbConf.astCommPool[1].u32BlkCnt =32;
@@ -877,7 +877,7 @@ HI_S32 SAMPLE_VENC_DUALPP_CLASSIC(HI_VOID)
     /******************************************
      step 3: start vi dev & chn to capture
     ******************************************/
-	s32Ret = SAMPLE_COMM_VI_Start(enViMode,gs_enNorm);
+    s32Ret = SAMPLE_COMM_VI_Start(enViMode,gs_enNorm_venc);
     if (HI_SUCCESS != s32Ret)
     {
         SAMPLE_PRT("start vi failed!\n");
@@ -887,7 +887,7 @@ HI_S32 SAMPLE_VENC_DUALPP_CLASSIC(HI_VOID)
     /******************************************
      step 4: start vpss and vi bind vpss
     ******************************************/
-    s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm, enSize[0], &stSize);
+    s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm_venc, enSize[0], &stSize);
     if (HI_SUCCESS != s32Ret)
     {
         SAMPLE_PRT("SAMPLE_COMM_SYS_GetPicSize failed!\n");
@@ -956,7 +956,7 @@ HI_S32 SAMPLE_VENC_DUALPP_CLASSIC(HI_VOID)
 	    VpssChn = 0;
 	    VencChn = 0;
 		
-		s32Ret = SAMPLE_COMM_VENC_GetGopAttr(enGopMode[0],&stGopAttr,gs_enNorm);
+        s32Ret = SAMPLE_COMM_VENC_GetGopAttr(enGopMode[0],&stGopAttr,gs_enNorm_venc);
 	    if (HI_SUCCESS != s32Ret)
 	    {
 	        SAMPLE_PRT("Get GopAttr failed!\n");
@@ -964,7 +964,7 @@ HI_S32 SAMPLE_VENC_DUALPP_CLASSIC(HI_VOID)
 	    }		
 		stGopAttr.stDualP.u32SPInterval = 0;
 	    s32Ret = SAMPLE_COMM_VENC_StartEx(VencChn, enPayLoad[0],\
-	                                   gs_enNorm, enSize[0], enRcMode,u32Profile,&stGopAttr);
+                                       gs_enNorm_venc, enSize[0], enRcMode,u32Profile,&stGopAttr);
 	    if (HI_SUCCESS != s32Ret)
 	    {
 	        SAMPLE_PRT("Start Venc failed!\n");
@@ -984,7 +984,7 @@ HI_S32 SAMPLE_VENC_DUALPP_CLASSIC(HI_VOID)
 	{
 		VpssChn = 1;
 	    VencChn = 1;
-		s32Ret = SAMPLE_COMM_VENC_GetGopAttr(enGopMode[1],&stGopAttr,gs_enNorm);
+        s32Ret = SAMPLE_COMM_VENC_GetGopAttr(enGopMode[1],&stGopAttr,gs_enNorm_venc);
 	    if (HI_SUCCESS != s32Ret)
 	    {
 	        SAMPLE_PRT("Get GopAttr failed!\n");
@@ -992,7 +992,7 @@ HI_S32 SAMPLE_VENC_DUALPP_CLASSIC(HI_VOID)
 	    }
 		stGopAttr.stDualP.u32SPInterval = 0;
 	    s32Ret = SAMPLE_COMM_VENC_StartEx(VencChn, enPayLoad[1],\
-	                                   gs_enNorm, enSize[1], enRcMode,u32Profile,&stGopAttr);
+                                       gs_enNorm_venc, enSize[1], enRcMode,u32Profile,&stGopAttr);
 	    if (HI_SUCCESS != s32Ret)
 	    {
 	        SAMPLE_PRT("Start Venc failed!\n");
@@ -1104,14 +1104,14 @@ HI_S32 SAMPLE_VENC_BgModel_CLASSIC(HI_VOID)
     /*video buffer*/ 
 	if(s32ChnNum >= 1)
 	{
-		u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm,\
+        u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm_venc,\
 					enSize[0], SAMPLE_PIXEL_FORMAT, SAMPLE_SYS_ALIGN_WIDTH,COMPRESS_MODE_SEG);
 		stVbConf.astCommPool[0].u32BlkSize = u32BlkSize;
 		stVbConf.astCommPool[0].u32BlkCnt = 32;
 	}
 	if(s32ChnNum >= 2)
 	{
-		u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm,\
+        u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm_venc,\
 					enSize[1], SAMPLE_PIXEL_FORMAT, SAMPLE_SYS_ALIGN_WIDTH,COMPRESS_MODE_SEG);
 		stVbConf.astCommPool[1].u32BlkSize = u32BlkSize;
 		stVbConf.astCommPool[1].u32BlkCnt =32;
@@ -1131,7 +1131,7 @@ HI_S32 SAMPLE_VENC_BgModel_CLASSIC(HI_VOID)
 	/******************************************
 	 step 3: start vi dev & chn to capture
 	******************************************/
-	s32Ret = SAMPLE_COMM_VI_Start(enViMode,gs_enNorm);
+    s32Ret = SAMPLE_COMM_VI_Start(enViMode,gs_enNorm_venc);
 	if (HI_SUCCESS != s32Ret)
 	{
 		SAMPLE_PRT("start vi failed!\n");
@@ -1141,7 +1141,7 @@ HI_S32 SAMPLE_VENC_BgModel_CLASSIC(HI_VOID)
 	/******************************************
 	 step 4: start vpss and vi bind vpss
 	******************************************/
-	s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm, enSize[0], &stSize);
+    s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm_venc, enSize[0], &stSize);
 	if (HI_SUCCESS != s32Ret)
 	{
 		SAMPLE_PRT("SAMPLE_COMM_SYS_GetPicSize failed!\n");
@@ -1210,7 +1210,7 @@ HI_S32 SAMPLE_VENC_BgModel_CLASSIC(HI_VOID)
 		VpssChn = 0;
 	    VencChn = 0;
 		
-		s32Ret = SAMPLE_COMM_VENC_GetGopAttr(enGopMode[0],&stGopAttr,gs_enNorm);
+        s32Ret = SAMPLE_COMM_VENC_GetGopAttr(enGopMode[0],&stGopAttr,gs_enNorm_venc);
 	    if (HI_SUCCESS != s32Ret)
 	    {
 	        SAMPLE_PRT("Get GopAttr failed!\n");
@@ -1218,7 +1218,7 @@ HI_S32 SAMPLE_VENC_BgModel_CLASSIC(HI_VOID)
 	    }		
 		
 	    s32Ret = SAMPLE_COMM_VENC_StartEx(VencChn, enPayLoad[0],\
-	                                   gs_enNorm, enSize[0], enRcMode,u32Profile,&stGopAttr);
+                                       gs_enNorm_venc, enSize[0], enRcMode,u32Profile,&stGopAttr);
 		if (HI_SUCCESS != s32Ret)
 		{
 			SAMPLE_PRT("Start Venc failed!\n");
@@ -1248,7 +1248,7 @@ HI_S32 SAMPLE_VENC_BgModel_CLASSIC(HI_VOID)
 		VpssChn = 1;
 	    VencChn = 1;
 		
-		s32Ret = SAMPLE_COMM_VENC_GetGopAttr(enGopMode[1],&stGopAttr,gs_enNorm);
+        s32Ret = SAMPLE_COMM_VENC_GetGopAttr(enGopMode[1],&stGopAttr,gs_enNorm_venc);
 	    if (HI_SUCCESS != s32Ret)
 	    {
 	        SAMPLE_PRT("Get GopAttr failed!\n");
@@ -1256,7 +1256,7 @@ HI_S32 SAMPLE_VENC_BgModel_CLASSIC(HI_VOID)
 	    }		
 		
 	    s32Ret = SAMPLE_COMM_VENC_StartEx(VencChn, enPayLoad[1],\
-	                                   gs_enNorm, enSize[1], enRcMode,u32Profile,&stGopAttr);
+                                       gs_enNorm_venc, enSize[1], enRcMode,u32Profile,&stGopAttr);
 		if (HI_SUCCESS != s32Ret)
 		{
 			SAMPLE_PRT("Start Venc failed!\n");
@@ -1362,14 +1362,14 @@ HI_S32 SAMPLE_VENC_IntraRefresh_CLASSIC(HI_VOID)
     /*video buffer*/ 
 	if(s32ChnNum >= 1)
     {
-	    u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm,\
+        u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm_venc,\
 	                enSize[0], SAMPLE_PIXEL_FORMAT, SAMPLE_SYS_ALIGN_WIDTH,COMPRESS_MODE_SEG);
 	    stVbConf.astCommPool[0].u32BlkSize = u32BlkSize;
 	    stVbConf.astCommPool[0].u32BlkCnt = 32;
 	}
 	if(s32ChnNum >= 2)
     {
-	    u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm,\
+        u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm_venc,\
 	                enSize[1], SAMPLE_PIXEL_FORMAT, SAMPLE_SYS_ALIGN_WIDTH,COMPRESS_MODE_SEG);
 	    stVbConf.astCommPool[1].u32BlkSize = u32BlkSize;
 	    stVbConf.astCommPool[1].u32BlkCnt =32;
@@ -1389,7 +1389,7 @@ HI_S32 SAMPLE_VENC_IntraRefresh_CLASSIC(HI_VOID)
     /******************************************
      step 3: start vi dev & chn to capture
     ******************************************/
-    s32Ret = SAMPLE_COMM_VI_Start(enViMode,gs_enNorm);
+    s32Ret = SAMPLE_COMM_VI_Start(enViMode,gs_enNorm_venc);
     if (HI_SUCCESS != s32Ret)
     {
         SAMPLE_PRT("start vi failed!\n");
@@ -1399,7 +1399,7 @@ HI_S32 SAMPLE_VENC_IntraRefresh_CLASSIC(HI_VOID)
     /******************************************
      step 4: start vpss and vi bind vpss
     ******************************************/
-    s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm, enSize[0], &stSize);
+    s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm_venc, enSize[0], &stSize);
     if (HI_SUCCESS != s32Ret)
     {
         SAMPLE_PRT("SAMPLE_COMM_SYS_GetPicSize failed!\n");
@@ -1466,7 +1466,7 @@ HI_S32 SAMPLE_VENC_IntraRefresh_CLASSIC(HI_VOID)
 	    VencChn = 0;
 		
 	    s32Ret = SAMPLE_COMM_VENC_Start(VencChn, enPayLoad[0],\
-	                                   gs_enNorm, enSize[0], enRcMode,u32Profile);
+                                       gs_enNorm_venc, enSize[0], enRcMode,u32Profile);
 	    if (HI_SUCCESS != s32Ret)
 	    {
 	        SAMPLE_PRT("Start Venc failed!\n");
@@ -1480,7 +1480,7 @@ HI_S32 SAMPLE_VENC_IntraRefresh_CLASSIC(HI_VOID)
 	        goto END_VENC_1080P_CLASSIC_4;
 	    }
 		
-		s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm, enSize[0], &stSize);
+        s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm_venc, enSize[0], &stSize);
 	    if (HI_SUCCESS != s32Ret)
 	    {
 			SAMPLE_PRT("SAMPLE_COMM_SYS_GetPicSize failed!\n");
@@ -1502,7 +1502,7 @@ HI_S32 SAMPLE_VENC_IntraRefresh_CLASSIC(HI_VOID)
 	    VencChn = 1;
 		
 	    s32Ret = SAMPLE_COMM_VENC_Start(VencChn, enPayLoad[1],\
-	                                   gs_enNorm, enSize[1], enRcMode,u32Profile);
+                                       gs_enNorm_venc, enSize[1], enRcMode,u32Profile);
 	    if (HI_SUCCESS != s32Ret)
 	    {
 	        SAMPLE_PRT("Start Venc failed!\n");
@@ -1516,7 +1516,7 @@ HI_S32 SAMPLE_VENC_IntraRefresh_CLASSIC(HI_VOID)
 	        goto END_VENC_1080P_CLASSIC_4;
 	    }	
 
-		s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm, enSize[1], &stSize);
+        s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm_venc, enSize[1], &stSize);
 	    if (HI_SUCCESS != s32Ret)
 	    {
 			SAMPLE_PRT("SAMPLE_COMM_SYS_GetPicSize failed!\n");
@@ -1619,14 +1619,14 @@ HI_S32 SAMPLE_VENC_1080P_MJPEG_JPEG(HI_VOID)
 
     /*video buffer*/
     {
-    u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm, \
+    u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm_venc, \
 	                enSize[0], SAMPLE_PIXEL_FORMAT, SAMPLE_SYS_ALIGN_WIDTH,COMPRESS_MODE_SEG);
 	    stVbConf.astCommPool[0].u32BlkSize = u32BlkSize;
 	    stVbConf.astCommPool[0].u32BlkCnt = 32;
 	}
 
     {
-	    u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm,\
+        u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm_venc,\
 	                enSize[1], SAMPLE_PIXEL_FORMAT, SAMPLE_SYS_ALIGN_WIDTH,COMPRESS_MODE_SEG);
 	    stVbConf.astCommPool[1].u32BlkSize = u32BlkSize;
 	    stVbConf.astCommPool[1].u32BlkCnt =32;
@@ -1647,7 +1647,7 @@ HI_S32 SAMPLE_VENC_1080P_MJPEG_JPEG(HI_VOID)
     /******************************************
      step 3: start vi dev & chn to capture
     ******************************************/
-	s32Ret = SAMPLE_COMM_VI_Start(enViMode,gs_enNorm);
+    s32Ret = SAMPLE_COMM_VI_Start(enViMode,gs_enNorm_venc);
     if (HI_SUCCESS != s32Ret)
     {
         SAMPLE_PRT("start vi failed!\n");
@@ -1657,7 +1657,7 @@ HI_S32 SAMPLE_VENC_1080P_MJPEG_JPEG(HI_VOID)
     /******************************************
      step 4: start vpss and vi bind vpss
     ******************************************/
-    s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm, enSize[1], &stSize);
+    s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm_venc, enSize[1], &stSize);
     if (HI_SUCCESS != s32Ret)
     {
         SAMPLE_PRT("SAMPLE_COMM_SYS_GetPicSize failed!\n");
@@ -1692,7 +1692,7 @@ HI_S32 SAMPLE_VENC_1080P_MJPEG_JPEG(HI_VOID)
     VpssChn = 0;
     VencChn = 0;
     s32Ret = SAMPLE_COMM_VENC_Start(VencChn, enPayLoad, \
-                                    gs_enNorm, enSize[0], enRcMode, u32Profile);
+                                    gs_enNorm_venc, enSize[0], enRcMode, u32Profile);
     if (HI_SUCCESS != s32Ret)
     {
         SAMPLE_PRT("Start Venc failed!\n");
@@ -1707,7 +1707,7 @@ HI_S32 SAMPLE_VENC_1080P_MJPEG_JPEG(HI_VOID)
     }
 
 	
-	s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm, enSize[1], &stSize);
+    s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm_venc, enSize[1], &stSize);
 	if (HI_SUCCESS != s32Ret)
 	{
 		SAMPLE_PRT("SAMPLE_COMM_SYS_GetPicSize failed!\n");
@@ -1821,12 +1821,12 @@ HI_S32 SAMPLE_VENC_ROIBG_CLASSIC(HI_VOID)
     stVbConf.u32MaxPoolCnt = 128;
 
     /*video buffer*/
-    u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm, \
+    u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm_venc, \
                  enSize[0], SAMPLE_PIXEL_FORMAT, SAMPLE_SYS_ALIGN_WIDTH,COMPRESS_MODE_SEG);
     stVbConf.astCommPool[0].u32BlkSize = u32BlkSize;
     stVbConf.astCommPool[0].u32BlkCnt = 32;
 
-    u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm, \
+    u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm_venc, \
                  enSize[1], SAMPLE_PIXEL_FORMAT, SAMPLE_SYS_ALIGN_WIDTH,COMPRESS_MODE_SEG);
     stVbConf.astCommPool[1].u32BlkSize = u32BlkSize;
     stVbConf.astCommPool[1].u32BlkCnt = 32;
@@ -1846,7 +1846,7 @@ HI_S32 SAMPLE_VENC_ROIBG_CLASSIC(HI_VOID)
     /******************************************
      step 3: start vi dev & chn to capture
     ******************************************/
-	s32Ret = SAMPLE_COMM_VI_Start(enViMode,gs_enNorm);
+    s32Ret = SAMPLE_COMM_VI_Start(enViMode,gs_enNorm_venc);
     if (HI_SUCCESS != s32Ret)
     {
         SAMPLE_PRT("start vi failed!\n");
@@ -1856,7 +1856,7 @@ HI_S32 SAMPLE_VENC_ROIBG_CLASSIC(HI_VOID)
     /******************************************
      step 4: start vpss and vi bind vpss
     ******************************************/
-    s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm, enSize[0], &stSize);
+    s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm_venc, enSize[0], &stSize);
     if (HI_SUCCESS != s32Ret)
     {
         SAMPLE_PRT("SAMPLE_COMM_SYS_GetPicSize failed!\n");
@@ -1921,7 +1921,7 @@ HI_S32 SAMPLE_VENC_ROIBG_CLASSIC(HI_VOID)
 	    VencChn = 0;
 
 	    s32Ret = SAMPLE_COMM_VENC_Start(VencChn, enPayLoad[0], \
-	                                    gs_enNorm, enSize[0], enRcMode, u32Profile);
+                                        gs_enNorm_venc, enSize[0], enRcMode, u32Profile);
 	    if (HI_SUCCESS != s32Ret)
 	    {
 	        SAMPLE_PRT("Start Venc failed!\n");
@@ -1955,8 +1955,8 @@ HI_S32 SAMPLE_VENC_ROIBG_CLASSIC(HI_VOID)
 	        SAMPLE_PRT("HI_MPI_VENC_GetRoiBgFrameRate failed!\n");
 	        goto END_VENC_1080P_CLASSIC_4;
 	    }
-	    stRoiBgFrameRate.s32SrcFrmRate = (VIDEO_ENCODING_MODE_PAL == gs_enNorm) ? 25 : 30;
-	    stRoiBgFrameRate.s32DstFrmRate = (VIDEO_ENCODING_MODE_PAL == gs_enNorm) ? 5 : 15;
+        stRoiBgFrameRate.s32SrcFrmRate = (VIDEO_ENCODING_MODE_PAL == gs_enNorm_venc) ? 25 : 30;
+        stRoiBgFrameRate.s32DstFrmRate = (VIDEO_ENCODING_MODE_PAL == gs_enNorm_venc) ? 5 : 15;
 
 	    s32Ret = HI_MPI_VENC_SetRoiBgFrameRate(VencChn, &stRoiBgFrameRate);
 	    if (HI_SUCCESS != s32Ret)
@@ -1971,7 +1971,7 @@ HI_S32 SAMPLE_VENC_ROIBG_CLASSIC(HI_VOID)
 	    VpssChn = 1;
 	    VencChn = 1;
 	    s32Ret = SAMPLE_COMM_VENC_Start(VencChn, enPayLoad[1], \
-	                                    gs_enNorm, enSize[1], enRcMode, u32Profile);
+                                        gs_enNorm_venc, enSize[1], enRcMode, u32Profile);
 	    if (HI_SUCCESS != s32Ret)
 	    {
 	        SAMPLE_PRT("Start Venc failed!\n");
@@ -2003,8 +2003,8 @@ HI_S32 SAMPLE_VENC_ROIBG_CLASSIC(HI_VOID)
 	        SAMPLE_PRT("HI_MPI_VENC_GetRoiBgFrameRate failed!\n");
 	        goto END_VENC_1080P_CLASSIC_4;
 	    }
-	    stRoiBgFrameRate.s32SrcFrmRate = (VIDEO_ENCODING_MODE_PAL == gs_enNorm) ? 25 : 30;
-	    stRoiBgFrameRate.s32DstFrmRate = (VIDEO_ENCODING_MODE_PAL == gs_enNorm) ? 5 : 15;
+        stRoiBgFrameRate.s32SrcFrmRate = (VIDEO_ENCODING_MODE_PAL == gs_enNorm_venc) ? 25 : 30;
+        stRoiBgFrameRate.s32DstFrmRate = (VIDEO_ENCODING_MODE_PAL == gs_enNorm_venc) ? 5 : 15;
 	    s32Ret = HI_MPI_VENC_SetRoiBgFrameRate(VencChn, &stRoiBgFrameRate);
 	    if (HI_SUCCESS != s32Ret)
 	    {
@@ -2091,12 +2091,12 @@ HI_S32 SAMPLE_VENC_SVC_H264(HI_VOID)
     stVbConf.u32MaxPoolCnt = 128;
 
     /*video buffer*/
-    u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm, \
+    u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm_venc, \
                  enSize[0], SAMPLE_PIXEL_FORMAT, SAMPLE_SYS_ALIGN_WIDTH,COMPRESS_MODE_SEG);
     stVbConf.astCommPool[0].u32BlkSize = u32BlkSize;
     stVbConf.astCommPool[0].u32BlkCnt = 32;
 
-    u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm, \
+    u32BlkSize = SAMPLE_COMM_SYS_CalcPicVbBlkSize(gs_enNorm_venc, \
                  enSize[1], SAMPLE_PIXEL_FORMAT, SAMPLE_SYS_ALIGN_WIDTH,COMPRESS_MODE_SEG);
     stVbConf.astCommPool[1].u32BlkSize = u32BlkSize;
     stVbConf.astCommPool[1].u32BlkCnt = 32;
@@ -2117,7 +2117,7 @@ HI_S32 SAMPLE_VENC_SVC_H264(HI_VOID)
     /******************************************
      step 3: start vi dev & chn to capture
     ******************************************/
-	s32Ret = SAMPLE_COMM_VI_Start(enViMode,gs_enNorm);
+    s32Ret = SAMPLE_COMM_VI_Start(enViMode,gs_enNorm_venc);
     if (HI_SUCCESS != s32Ret)
     {
         SAMPLE_PRT("start vi failed!\n");
@@ -2127,7 +2127,7 @@ HI_S32 SAMPLE_VENC_SVC_H264(HI_VOID)
     /******************************************
      step 4: start vpss and vi bind vpss
     ******************************************/
-    s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm, enSize[0], &stSize);
+    s32Ret = SAMPLE_COMM_SYS_GetPicSize(gs_enNorm_venc, enSize[0], &stSize);
     if (HI_SUCCESS != s32Ret)
     {
         SAMPLE_PRT("SAMPLE_COMM_SYS_GetPicSize failed!\n");
@@ -2187,7 +2187,7 @@ HI_S32 SAMPLE_VENC_SVC_H264(HI_VOID)
     VencChn = 0;
 
     s32Ret = SAMPLE_COMM_VENC_Start(VencChn, enPayLoad, \
-                                    gs_enNorm, enSize[0], enRcMode, u32Profile);
+                                    gs_enNorm_venc, enSize[0], enRcMode, u32Profile);
 
 
     if (HI_SUCCESS != s32Ret)
